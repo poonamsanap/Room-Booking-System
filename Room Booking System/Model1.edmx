@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RoomBookingSystemDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="Booking_id" />
+          </Key>
+          <Property Name="Booking_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_no" Type="int" />
+          <Property Name="From_date" Type="date" />
+          <Property Name="To_date" Type="date" />
+          <Property Name="Total_adults" Type="int" />
+          <Property Name="Amount" Type="money" />
+          <Property Name="PersonId" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RoomDetails">
+          <Key>
+            <PropertyRef Name="Room_no" />
+          </Key>
+          <Property Name="Room_no" Type="int" Nullable="false" />
+          <Property Name="Room_type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Bed_quantity" Type="int" Nullable="false" />
+          <Property Name="Capacity" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="Image" Type="image" />
+          <Property Name="Room_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tableTransactions">
+          <Key>
+            <PropertyRef Name="Transaction_id" />
+          </Key>
+          <Property Name="Transaction_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Card_no" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cardholder_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Card_type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CVV" Type="int" Nullable="false" />
+          <Property Name="Expiry_date" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usertable">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Admin" Type="varchar" MaxLength="50" />
+          <Property Name="contactno" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Bookings__Room_n__29221CFB">
+          <End Role="RoomDetails" Type="Self.RoomDetails" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomDetails">
+              <PropertyRef Name="Room_no" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="Room_no" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RoomBookingSystemDatabaseModelStoreContainer">
+          <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomDetails" EntityType="Self.RoomDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tableTransactions" EntityType="Self.tableTransactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usertable" EntityType="Self.Usertable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Bookings__Room_n__29221CFB" Association="Self.FK__Bookings__Room_n__29221CFB">
+            <End Role="RoomDetails" EntitySet="RoomDetails" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RoomBookingSystemDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="Booking_id" />
+          </Key>
+          <Property Name="Booking_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_no" Type="Int32" />
+          <Property Name="From_date" Type="DateTime" Precision="0" />
+          <Property Name="To_date" Type="DateTime" Precision="0" />
+          <Property Name="Total_adults" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PersonId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RoomDetail" Relationship="Self.FK__Bookings__Room_n__29221CFB" FromRole="Bookings" ToRole="RoomDetails" />
+        </EntityType>
+        <EntityType Name="RoomDetail">
+          <Key>
+            <PropertyRef Name="Room_no" />
+          </Key>
+          <Property Name="Room_no" Type="Int32" Nullable="false" />
+          <Property Name="Room_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Bed_quantity" Type="Int32" Nullable="false" />
+          <Property Name="Capacity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Room_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__Room_n__29221CFB" FromRole="RoomDetails" ToRole="Bookings" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tableTransaction">
+          <Key>
+            <PropertyRef Name="Transaction_id" />
+          </Key>
+          <Property Name="Transaction_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Card_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cardholder_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Card_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CVV" Type="Int32" Nullable="false" />
+          <Property Name="Expiry_date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usertable">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Admin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="contactno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__Bookings__Room_n__29221CFB">
+          <End Role="RoomDetails" Type="Self.RoomDetail" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoomDetails">
+              <PropertyRef Name="Room_no" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="Room_no" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RoomBookingSystemDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="RoomDetails" EntityType="Self.RoomDetail" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tableTransactions" EntityType="Self.tableTransaction" />
+          <EntitySet Name="Usertables" EntityType="Self.Usertable" />
+          <AssociationSet Name="FK__Bookings__Room_n__29221CFB" Association="Self.FK__Bookings__Room_n__29221CFB">
+            <End Role="RoomDetails" EntitySet="RoomDetails" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RoomBookingSystemDatabaseModelStoreContainer" CdmEntityContainer="RoomBookingSystemDatabaseEntities">
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="RoomBookingSystemDatabaseModel.Booking">
+              <MappingFragment StoreEntitySet="Bookings">
+                <ScalarProperty Name="Booking_id" ColumnName="Booking_id" />
+                <ScalarProperty Name="Room_no" ColumnName="Room_no" />
+                <ScalarProperty Name="From_date" ColumnName="From_date" />
+                <ScalarProperty Name="To_date" ColumnName="To_date" />
+                <ScalarProperty Name="Total_adults" ColumnName="Total_adults" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomDetails">
+            <EntityTypeMapping TypeName="RoomBookingSystemDatabaseModel.RoomDetail">
+              <MappingFragment StoreEntitySet="RoomDetails">
+                <ScalarProperty Name="Room_no" ColumnName="Room_no" />
+                <ScalarProperty Name="Room_type" ColumnName="Room_type" />
+                <ScalarProperty Name="Bed_quantity" ColumnName="Bed_quantity" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Room_id" ColumnName="Room_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RoomBookingSystemDatabaseModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tableTransactions">
+            <EntityTypeMapping TypeName="RoomBookingSystemDatabaseModel.tableTransaction">
+              <MappingFragment StoreEntitySet="tableTransactions">
+                <ScalarProperty Name="Transaction_id" ColumnName="Transaction_id" />
+                <ScalarProperty Name="Card_no" ColumnName="Card_no" />
+                <ScalarProperty Name="Cardholder_name" ColumnName="Cardholder_name" />
+                <ScalarProperty Name="Card_type" ColumnName="Card_type" />
+                <ScalarProperty Name="CVV" ColumnName="CVV" />
+                <ScalarProperty Name="Expiry_date" ColumnName="Expiry_date" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usertables">
+            <EntityTypeMapping TypeName="RoomBookingSystemDatabaseModel.Usertable">
+              <MappingFragment StoreEntitySet="Usertable">
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="contactno" ColumnName="contactno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
